@@ -7,6 +7,10 @@ const defaultSelector = selector<ICountries[]>({
   get: async () => {
     return getCountries();
   },
+
+  set: ({ set }, newValue) => {
+    set(countriesState, newValue);
+  },
 });
 
 export const countriesState = atom<ICountries[]>({
