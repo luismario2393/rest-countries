@@ -9,7 +9,7 @@ export const StyledButton = styled.button<IButton>`
   display: flex;
   gap: 8px;
   align-items: center;
-  font-size: 11px;
+  font-size: 16px;
   font-family: "Unbounded", cursive;
   border: none;
   cursor: pointer;
