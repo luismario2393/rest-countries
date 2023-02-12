@@ -1,24 +1,25 @@
 import { ChangeEvent, useMemo, useState } from "react";
-import { useRecoilState } from "recoil";
+import { useRecoilState, useRecoilValue } from "recoil";
 import { getCountrieName, getCountries, getRegion } from "../../api/countries";
 import { countriesState } from "../../state/atom/countries";
 import { ICountries } from "../../state/types/types";
 import { CountryCard } from "../CountryCard";
-import { Header } from "../Header";
 import { SearchInput } from "../SearchInput";
 import { IoChevronDown } from "react-icons/io5";
+import { useNavigate } from "react-router-dom";
 
-import {
-  Container,
-  ContainerCard,
-  ContainerFilters,
-  StyledSelect,
-} from "./styled";
+import { ContainerCard, ContainerFilters, StyledSelect } from "./styled";
+import { countryState } from "../../state/atom/country";
+import { darkModeState } from "../../state/atom/darkMode";
 
 export const Home = () => {
   const [countries, setCountries] =
     useRecoilState<ICountries[]>(countriesState);
+  const darkMode = useRecoilValue(darkModeState);
+  const [, setCountry] = useRecoilState<ICountries>(countryState);
   const [open, setOpen] = useState<boolean>(false);
+
+  const navigate = useNavigate();
 
   const handleSearch = async (e: ChangeEvent<HTMLInputElement>) => {
     try {
@@ -77,15 +78,15 @@ export const Home = () => {
   };
 
   return (
-    <Container>
-      <Header />
-      <ContainerFilters>
+    <>
+      <ContainerFilters darkMode={darkMode}>
         <SearchInput
           placeholder="Search for a country..."
           onChange={(e) => handleSearch(e)}
         />
 
         <StyledSelect
+          darkMode={darkMode}
           open={open}
           placeholder="Filter by Region"
           onDropdownVisibleChange={(open) => setOpen(open)}
@@ -96,11 +97,18 @@ export const Home = () => {
           suffixIcon={<IoChevronDown />}
         />
       </ContainerFilters>
-      <ContainerCard>
+      <ContainerCard darkMode={darkMode}>
         {countries.map((country: ICountries) => (
-          <CountryCard country={country} key={country.cca3} />
+          <CountryCard
+            country={country}
+            key={country.cca3}
+            onClick={() => {
+              navigate(`/${country.cca3}`);
+              setCountry(country);
+            }}
+          />
         ))}
       </ContainerCard>
-    </Container>
+    </>
   );
 };

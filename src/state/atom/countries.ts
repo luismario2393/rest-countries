@@ -3,7 +3,7 @@ import { getCountries } from "../../api/countries";
 import { ICountries } from "../types/types";
 
 const defaultSelector = selector<ICountries[]>({
-  key: "productsState/default",
+  key: "countriesState/default",
   get: async () => {
     return getCountries();
   },

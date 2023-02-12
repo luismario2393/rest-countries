@@ -1,5 +1,7 @@
 import { ChangeEvent, FC } from "react";
 import { IoMdSearch } from "react-icons/io";
+import { useRecoilValue } from "recoil";
+import { darkModeState } from "../../state/atom/darkMode";
 import { Container } from "./styled";
 
 interface Props {
@@ -8,8 +10,9 @@ interface Props {
 }
 
 export const SearchInput: FC<Props> = ({ onChange, placeholder }) => {
+  const darkMode = useRecoilValue(darkModeState);
   return (
-    <Container>
+    <Container darkMode={darkMode}>
       <IoMdSearch />
       <input type="text" placeholder={placeholder} onChange={onChange} />
     </Container>

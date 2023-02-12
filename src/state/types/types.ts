@@ -1,6 +1,7 @@
 export interface ICountries {
   altSpellings: string[];
   area: number;
+  borders: string[];
   capital: string[];
   capitalInfo: ICapitalInfo;
   car: ICar;
@@ -10,7 +11,7 @@ export interface ICountries {
   cioc: string;
   coatOfArms: ICoatOfArms;
   continents: string[];
-  currencies: ICurrencies;
+  currencies: { [key: string]: ICurrencies };
   demonyms: IDemonyms;
   fifa: string;
   flag: string;
@@ -19,7 +20,7 @@ export interface ICountries {
   idd: IIdd;
   independent: boolean;
   landlocked: boolean;
-  languages: ILanguages;
+  languages: { [key: string]: string };
   latlng: number[];
   maps: IMaps;
   name: IName;
@@ -50,10 +51,6 @@ interface ICoatOfArms {
 }
 
 interface ICurrencies {
-  ISK: IISK;
-}
-
-interface IISK {
   name: string;
   symbol: string;
 }
@@ -83,10 +80,6 @@ interface IIdd {
   suffixes: string[];
 }
 
-interface ILanguages {
-  isl: string;
-}
-
 interface IMaps {
   googleMaps: string;
   openStreetMaps: string;
@@ -94,14 +87,11 @@ interface IMaps {
 
 interface IName {
   common: string;
-  nativeName: TNativeName;
+  nativeName: { [key: string]: TNativeName };
+  official: string;
 }
 
-interface TNativeName {
-  isl: TNativeNameIsl;
-}
-
-type TNativeNameIsl = {
+type TNativeName = {
   common: string;
   official: string;
 };

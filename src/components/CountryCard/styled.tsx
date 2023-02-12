@@ -1,11 +1,15 @@
 import styled from "styled-components";
 
-export const Card = styled.div`
+interface IContainer {
+  darkMode: boolean;
+}
+
+export const Card = styled.div<IContainer>`
   width: 280px;
   height: 350px;
-  background-color: #fff;
+  background-color: ${({ darkMode }) => (darkMode ? "#2b3743" : " #fff")};
   border-radius: 6px;
-  box-shadow: 10px -5px 13px 8px #f2f2f2;
+  box-shadow: 10px -5px 13px 8px ${({ darkMode }) => (darkMode ? "rgba(0, 0, 0, 0.2)" : " #f2f2f2")};
 `;
 
 export const ContainerImage = styled.div`
@@ -19,8 +23,9 @@ export const ContainerImage = styled.div`
   }
 `;
 
-export const ContainerText = styled.div`
+export const ContainerText = styled.div<IContainer>`
   padding: 20px;
+  color: ${({ darkMode }) => (darkMode ? "#fff" : " #000")};
   h3 {
     font-size: 18px;
   }

@@ -7,5 +7,8 @@ export const getCountries = (): Promise<ICountries[]> =>
 export const getCountrieName = (query: string): Promise<ICountries[]> =>
   baseApi.get(`/name/${query}`).then((r) => r.data);
 
+export const getCodesCountries = (query: string): Promise<ICountries[]> =>
+  baseApi.get(`/alpha?codes=${query}`).then((r) => r.data);
+
 export const getRegion = (query: string): Promise<ICountries[]> =>
   baseApi.get(`/region/${query}`).then((r) => r.data);
